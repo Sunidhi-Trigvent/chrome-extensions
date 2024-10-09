@@ -1,6 +1,6 @@
 {
   "name": "Linkedin Parser",
-  "description": "To fetch the url of profiles and display them in tabular format",
+  "description": "To fetch the URL of profiles and display them in tabular format",
   "version": "1.0",
   "manifest_version": 3,
 
@@ -9,6 +9,13 @@
     "default_icon": "faviconpng.png"
   },
 
-  "permissions": ["tabs", "activeTab"],
-  "host_permissions": ["<all_urls>"]
+  "permissions": ["tabs", "activeTab", "storage"],
+  "host_permissions": ["<all_urls>"],
+
+  "web_accessible_resources": [
+    {
+      "resources": ["newPage.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
