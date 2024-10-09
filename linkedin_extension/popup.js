@@ -1,0 +1,7 @@
+document.getElementById("btn").addEventListener("click", function () {
+  //   alert("welcome!");
+  chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+    console.log(tabs[0].url);
+    // console.log("hi");
+  });
+});
