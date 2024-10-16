@@ -16,11 +16,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Handle login button click to open LinkedIn login page
+  // Handle login button click
   loginButton.addEventListener("click", () => {
-    chrome.tabs.create({ url: "https://www.linkedin.com/login" }, () => {
-      // Temporarily set login status to false until the user logs in completely
-      chrome.storage.sync.set({ isLoggedIn: false });
+    // Check if the user is currently on the LinkedIn login page
+    chrome.tabs.query({ currentWindow: true }, (tabs) => {
+      const linkedInLoginURL = "https://www.linkedin.com/login";
+      const isOnLoginPage = tabs.some(
+        (tab) => tab.url && tab.url.includes(linkedInLoginURL)
+      );
+
+      if (!isOnLoginPage) {
+        // If not on the LinkedIn login page, open a new tab
+        chrome.tabs.create({ url: linkedInLoginURL });
+      } else {
+        // If already on the LinkedIn login page, just close the popup
+        window.close();
+      }
     });
   });
 });
