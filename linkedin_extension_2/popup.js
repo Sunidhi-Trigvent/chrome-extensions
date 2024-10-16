@@ -38,10 +38,15 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchButton.addEventListener("click", () => {
     const url = linkedinUrlInput.value.trim();
     if (url) {
-      // Open LinkedIn profile URL in a new tab
-      chrome.tabs.create({ url: url }, (tab) => {
-        // Send a message to the content script to scrape data
-        chrome.tabs.sendMessage(tab.id, { action: "scrapeProfile" });
+      // Update the current tab with the LinkedIn profile URL
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const activeTab = tabs[0];
+
+        // Update the current tab URL to the LinkedIn profile URL
+        chrome.tabs.update(activeTab.id, { url: url }, () => {
+          // Send a message to the content script to scrape data
+          chrome.tabs.sendMessage(activeTab.id, { action: "scrapeProfile" });
+        });
       });
 
       // Open newPage.html to display the scraped data
