@@ -12,9 +12,9 @@ function checkLoginStatus() {
   
   // Run the check when the content script is loaded
   checkLoginStatus();
-
-// Listen for messages from popup.js
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  
+  // Listen for messages from popup.js
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "scrapeProfile") {
       // Scrape the profile data
       const profileNameElement = document.querySelector('h1.text-heading-xlarge');
@@ -23,11 +23,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const profileName = profileNameElement ? profileNameElement.innerText : 'Not found';
       const profileHeadline = profileHeadlineElement ? profileHeadlineElement.innerText : 'Not found';
   
-      // Save the scraped data to storage
-      chrome.storage.sync.set({ profileData: { name: profileName, headline: profileHeadline } }, () => {
-        sendResponse({ success: true });
+      // Send the profile data to the scrapeProfile.js script
+      chrome.runtime.sendMessage({
+        profileData: { name: profileName, headline: profileHeadline }
       });
-      return true; // Indicates asynchronous response
+  
+      // Indicate that the response is asynchronous
+      sendResponse({ success: true });
+      return true;
     }
   });
   

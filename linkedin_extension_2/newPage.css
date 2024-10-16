@@ -1,0 +1,74 @@
+/* Reset some default browser styling */
+body,
+h1,
+table {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f3f4f6;
+  color: #333;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #0077b5; /* LinkedIn blue color */
+}
+
+/* Styling for the table */
+#profile-data {
+  width: 100%;
+  max-width: 800px;
+  border-collapse: collapse;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  margin-top: 10px;
+}
+
+/* Table header styling */
+#profile-data th {
+  background-color: #0077b5; /* LinkedIn blue color */
+  color: #fff;
+  text-align: left;
+  padding: 12px;
+  font-size: 1.1rem;
+}
+
+/* Table cell styling */
+#profile-data td {
+  border: 1px solid #ddd;
+  padding: 15px;
+  font-size: 1.1rem;
+}
+
+/* Make the profile name and headline larger for emphasis */
+#profile-name,
+#profile-headline {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Add alternating row colors for better readability */
+#profile-data tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Hover effect for table rows */
+#profile-data tbody tr:hover {
+  background-color: #e0e0e0;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 600px) {
+  #profile-data {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}

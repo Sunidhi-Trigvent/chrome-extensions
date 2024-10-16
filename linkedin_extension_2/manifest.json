@@ -1,21 +1,21 @@
 {
-  "name": "Linkedin Parser",
-  "description": "To fetch the url of profiles and display them in tabular format",
-  "version": "1.0",
-  "manifest_version": 3,
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": "logo.png"
-  },
-  "permissions": ["tabs", "activeTab", "scripting", "storage"],
-  "host_permissions": ["https://*.linkedin.com/*"],
-  "background": {
-    "service_worker": "background.js"
-  },
-  "content_scripts": [
-    {
-      "matches": ["*://www.linkedin.com/*"],
-      "js": ["content.js"]
-    }
-  ]
-}
+    "name": "Linkedin Parser",
+    "description": "To fetch the url of profiles and display them in tabular format",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": "logo.png"
+    },
+    "permissions": ["tabs", "activeTab", "scripting", "storage"],
+    "host_permissions": ["https://*.linkedin.com/*"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://www.linkedin.com/*"],
+        "js": ["content.js"]
+      }
+    ]
+  }
