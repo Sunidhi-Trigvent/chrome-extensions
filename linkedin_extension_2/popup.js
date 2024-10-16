@@ -7,12 +7,27 @@ document.addEventListener("DOMContentLoaded", () => {
   function checkLinkedInLoginStatus() {
     chrome.tabs.query({ url: "*://www.linkedin.com/*" }, (tabs) => {
       if (tabs.length > 0) {
-        // Assume the user is logged in if there is an open LinkedIn tab
-        chrome.storage.sync.set({ isLoggedIn: true }, () => {
-          loginSection.style.display = "none";
-          fetchSection.style.display = "block";
-        });
+        // Check if the LinkedIn tab's URL indicates the user is logged in
+        const loggedInTab = tabs.find(
+          (tab) =>
+            tab.url.includes("linkedin.com/feed") ||
+            tab.url.includes("linkedin.com/in/")
+        );
+
+        if (loggedInTab) {
+          // If the user is on the LinkedIn feed or profile, assume they are logged in
+          chrome.storage.sync.set({ isLoggedIn: true }, () => {
+            loginSection.style.display = "none";
+            fetchSection.style.display = "block";
+          });
+        } else {
+          chrome.storage.sync.set({ isLoggedIn: false }, () => {
+            loginSection.style.display = "block";
+            fetchSection.style.display = "none";
+          });
+        }
       } else {
+        // If there are no LinkedIn tabs open, assume the user is not logged in
         chrome.storage.sync.set({ isLoggedIn: false }, () => {
           loginSection.style.display = "block";
           fetchSection.style.display = "none";
@@ -36,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loginButton.addEventListener("click", () => {
     chrome.tabs.create({ url: "https://www.linkedin.com/login" }, () => {
       // Once the user logs in, the status will be updated when they reopen the popup
-      chrome.storage.sync.set({ isLoggedIn: true });
+      chrome.storage.sync.set({ isLoggedIn: false }); // Reset login status until full authentication
     });
   });
 
