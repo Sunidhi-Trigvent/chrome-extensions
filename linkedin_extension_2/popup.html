@@ -7,14 +7,18 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <p>Login to Linkedin first</p>
-    <button id="btn-login">Login first</button>
+    <!-- Login Section -->
+    <div id="login-section">
+      <p>Login to LinkedIn first</p>
+      <button id="btn-login">Login first</button>
+    </div>
 
-    <!-- This below code will be shown only when user is already loggedin -->
-
-    <p>Enter Linkedin Profile URL</p>
-    <input type="text" id="linkedin-url" placeholder="Enter LinkedIn URL" />
-    <button id="btn-f">Fetch Data</button>
+    <!-- Fetch Data Section -->
+    <div id="fetch-section" style="display: none;">
+      <p>Enter LinkedIn Profile URL</p>
+      <input type="text" id="linkedin-url" placeholder="Enter LinkedIn URL" />
+      <button id="btn-f">Fetch Data</button>
+    </div>
 
     <script src="popup.js"></script>
   </body>
