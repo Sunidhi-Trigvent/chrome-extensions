@@ -38,19 +38,27 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchButton.addEventListener("click", () => {
     const url = linkedinUrlInput.value.trim();
     if (url) {
-      // Update the current tab with the LinkedIn profile URL
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const activeTab = tabs[0];
-
-        // Update the current tab URL to the LinkedIn profile URL
+  
         chrome.tabs.update(activeTab.id, { url: url }, () => {
-          // Send a message to the content script to scrape data
-          chrome.tabs.sendMessage(activeTab.id, { action: "scrapeProfile" });
+          chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
+            if (tabId === activeTab.id && info.status === "complete") {
+              chrome.tabs.onUpdated.removeListener(listener);
+  
+              chrome.tabs.sendMessage(activeTab.id, { action: "scrapeProfile" }, (response) => {
+                if (response && response.success) {
+                  // Profile data successfully scraped, open the new page
+                  chrome.tabs.create({ url: "newPage.html" });
+                } else {
+                  console.error("Error in sending message to content script.");
+                }
+              });
+            }
+          });
         });
       });
-
-      // Open newPage.html to display the scraped data
-      chrome.tabs.create({ url: "newPage.html" });
     }
   });
+  
 });
