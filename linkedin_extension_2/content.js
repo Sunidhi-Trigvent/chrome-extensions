@@ -1,15 +1,3 @@
-// content.js
-
-function checkLoginStatus() {
-  const isLoggedIn =
-    document.URL.includes("linkedin.com/feed") ||
-    document.URL.includes("linkedin.com/in/");
-
-  chrome.storage.sync.set({ isLoggedIn });
-}
-
-checkLoginStatus();
-
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "scrapeProfile") {
     setTimeout(() => {
@@ -28,9 +16,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         image: profileImage,
       };
 
-      // Save scraped data to chrome.storage
-      chrome.storage.sync.set({ profileData }, () => {
-        console.log("Profile data saved in chrome.storage", profileData);
+      // Fetch existing profiles
+      chrome.storage.sync.get("profiles", ({ profiles = [] }) => {
+        profiles.push(profileData); // Add the new profile
+        chrome.storage.sync.set({ profiles }, () => {
+          console.log("Profile data saved in chrome.storage", profiles);
+        });
       });
 
       sendResponse({ success: true, profileData });

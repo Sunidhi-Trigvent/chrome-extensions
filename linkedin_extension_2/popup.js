@@ -40,25 +40,30 @@ document.addEventListener("DOMContentLoaded", () => {
     if (url) {
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const activeTab = tabs[0];
-  
+
         chrome.tabs.update(activeTab.id, { url: url }, () => {
           chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
             if (tabId === activeTab.id && info.status === "complete") {
               chrome.tabs.onUpdated.removeListener(listener);
-  
-              chrome.tabs.sendMessage(activeTab.id, { action: "scrapeProfile" }, (response) => {
-                if (response && response.success) {
-                  // Profile data successfully scraped, open the new page
-                  chrome.tabs.create({ url: "newPage.html" });
-                } else {
-                  console.error("Error in sending message to content script.");
+
+              chrome.tabs.sendMessage(
+                activeTab.id,
+                { action: "scrapeProfile" },
+                (response) => {
+                  if (response && response.success) {
+                    // Profile data successfully scraped, open the new page
+                    chrome.tabs.create({ url: "newPage.html" });
+                  } else {
+                    console.error(
+                      "Error in sending message to content script."
+                    );
+                  }
                 }
-              });
+              );
             }
           });
         });
       });
     }
   });
-  
 });

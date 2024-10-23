@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       nameElement.innerText = profileData.name;
       headlineElement.innerText = profileData.headline;
-      imageElement.src = profileData.image || 'default-image.jpg'; // Use a default image if none is available
+      imageElement.src = profileData.image || "default-image.jpg"; // Use a default image if none is available
     } else {
       console.error("Profile data not found in chrome.storage");
     }
