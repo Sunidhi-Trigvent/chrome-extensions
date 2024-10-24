@@ -9,13 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const row = document.createElement("tr");
 
         row.innerHTML = `
-            <td><img src="${
-              profile.image || "default-image.jpg"
-            }" alt="Profile Image" width="100" height="100"></td>
-            <td>${profile.name}</td>
-            <td>${profile.headline}</td>
-            <td><button class="delete-btn" data-index="${index}">Delete</button></td>
-          `;
+          <td><img src="${
+            profile.image || "default-image.jpg"
+          }" alt="Profile Image" class="profile-image" width="100" height="100"></td>
+          <td>${profile.name}</td>
+          <td>${profile.headline}</td>
+          <td><button class="delete-btn" data-index="${index}">Delete</button></td>
+        `;
         tbody.appendChild(row);
       });
 
@@ -37,6 +37,22 @@ document.addEventListener("DOMContentLoaded", () => {
               });
             }
           });
+        });
+      });
+
+      // Add event listener to enlarge image on click
+      document.querySelectorAll(".profile-image").forEach((image) => {
+        image.addEventListener("click", function () {
+          const modal = document.getElementById("image-modal");
+          const modalImage = document.getElementById("enlarged-image");
+
+          modal.style.display = "block";
+          modalImage.src = this.src;
+
+          // Close modal when clicking the close button
+          document.getElementById("close-modal").onclick = function () {
+            modal.style.display = "none";
+          };
         });
       });
     } else {
