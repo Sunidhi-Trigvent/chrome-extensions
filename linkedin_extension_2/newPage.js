@@ -14,14 +14,14 @@ document.addEventListener("DOMContentLoaded", () => {
           }" alt="Profile Image" class="profile-image" width="100" height="100"></td>
           <td>${profile.name}</td>
           <td>${profile.headline}</td>
-          <td><button class="delete-btn" data-index="${index}">Delete</button></td>
+          <td><img src="delete.png" alt="Delete" class="delete-icon" data-index="${index}" style="cursor: pointer; width: 24px; height: 24px;"></td>
         `;
         tbody.appendChild(row);
       });
 
-      // Add event listeners to each delete button
-      document.querySelectorAll(".delete-btn").forEach((button) => {
-        button.addEventListener("click", function () {
+      // Add event listeners to each delete icon
+      document.querySelectorAll(".delete-icon").forEach((icon) => {
+        icon.addEventListener("click", function () {
           const index = this.getAttribute("data-index");
 
           // Fetch profiles from storage again to update them
