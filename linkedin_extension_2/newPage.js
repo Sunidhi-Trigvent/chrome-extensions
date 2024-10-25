@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         row.innerHTML = `
           <td><img src="${
             profile.image || "default-image.jpg"
-          }" alt="Profile Image" class="profile-image" width="100" height="100"></td>
+          }" alt="Profile Image" class="profile-image" width="100" height="100" style="border-radius: 50%; cursor: pointer;"></td>
           <td>${profile.name}</td>
           <td>${profile.headline}</td>
           <td><img src="delete.png" alt="Delete" class="delete-icon" data-index="${index}" style="cursor: pointer; width: 24px; height: 24px;"></td>
@@ -40,14 +40,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
 
-      // Add event listener to enlarge image on click
+      // Add event listener to enlarge image on click with HD quality
       document.querySelectorAll(".profile-image").forEach((image) => {
         image.addEventListener("click", function () {
           const modal = document.getElementById("image-modal");
           const modalImage = document.getElementById("enlarged-image");
 
-          modal.style.display = "block";
-          modalImage.src = this.src;
+          // Set modal display to block and update image source to HD
+          modal.style.display = "flex";
+          modalImage.src = this.src.replace(
+            "shrink_800_800",
+            "shrink_1200_1200"
+          ); // Update to HD quality
 
           // Close modal when clicking the close button
           document.getElementById("close-modal").onclick = function () {
