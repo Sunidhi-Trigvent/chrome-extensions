@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 (response) => {
                   if (response && response.success) {
                     // Profile data successfully scraped, open the new page
-                    chrome.tabs.create({ url: "newPage.html" });
+                    chrome.tabs.create({ url: "new-page.html" });
                   } else {
                     console.error(
                       "Error in sending message to content script."

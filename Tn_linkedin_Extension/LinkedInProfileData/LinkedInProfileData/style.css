@@ -1,0 +1,10 @@
+
+.container{
+    width: 400px;
+
+}
+.popup-body{
+    width: 300px ;
+    display: flex;
+    justify-content: space-between;
+}

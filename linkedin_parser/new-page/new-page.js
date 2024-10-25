@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }" alt="Profile Image" class="profile-image" width="100" height="100" style="border-radius: 50%; cursor: pointer;"></td>
           <td>${profile.name}</td>
           <td>${profile.headline}</td>
-          <td><img src="delete.png" alt="Delete" class="delete-icon" data-index="${index}" style="cursor: pointer; width: 24px; height: 24px;"></td>
+          <td><img src="./assets/images/delete.png" alt="Delete" class="delete-icon" data-index="${index}" style="cursor: pointer; width: 24px; height: 24px;"></td>
         `;
         tbody.appendChild(row);
       });
